@@ -24,7 +24,7 @@ assert.equal(
 assert.equal(subscription.globalGroups.length, 1, '只保留通用开屏广告');
 assert.deepEqual(
   subscription.categories.map((category) => category.name),
-  ['开屏广告', '功能类'],
+  ['开屏广告', '全屏广告', '功能类'],
 );
 
 for (const app of subscription.apps) {
@@ -32,6 +32,8 @@ for (const app of subscription.apps) {
   for (const group of app.groups) {
     assert.ok(
       group.name.startsWith('开屏广告') ||
+        (app.id === 'com.tencent.mm' &&
+          group.name === '全屏广告-青桔小程序弹窗') ||
         (app.id === 'com.max.xiaoheihe' &&
           group.name === '功能类-签到成功弹窗'),
       `超出维护范围：${app.name} / ${group.name}`,

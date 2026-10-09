@@ -1,4 +1,5 @@
-// 来源：Lin-arm/GKD_subscription v605。保留上游已发布规则的选择器、动作和匹配限制。
+// 开屏规则来源：Lin-arm/GKD_subscription v605。
+// 青桔弹窗规则来源：用户提供的快照 33254913。
 import { defineGkdApp } from '@gkd-kit/define';
 
 export default defineGkdApp({
@@ -46,6 +47,27 @@ export default defineGkdApp({
         },
       ],
       order: -10,
+    },
+    {
+      key: 1000,
+      name: '全屏广告-青桔小程序弹窗',
+      desc: '点击弹窗下方的 X 关闭按钮',
+      enable: true,
+      activityIds: '.plugin.appbrand.ui.AppBrandUI',
+      actionCd: 2000,
+      rules: [
+        {
+          key: 0,
+          action: 'clickCenter',
+          matches: [
+            '[text*="青桔"]',
+            '[text="扫码用车"][visibleToUser=true]',
+            // 弹窗内容和“我知道了”均在图片中；定位图片下方的 X。
+            '@Image[visibleToUser=true][width<parent.width.div(5)][height<parent.width.div(5)][top>parent.getChild(0).bottom] - View[visibleToUser=true][childCount=1] > Image[visibleToUser=true][height>width]',
+          ],
+          snapshotUrls: 'https://i.gkd.li/i/33254913',
+        },
+      ],
     },
   ],
 });
