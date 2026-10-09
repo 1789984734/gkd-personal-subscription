@@ -1,0 +1,82 @@
+# 个人开屏广告订阅
+
+维护 16 个应用的开屏广告，以及小黑盒的签到成功弹窗。规则基于 Lin-arm/GKD_subscription 已发布的 v605 提取，沿用原有选择器、动作、冷却时间、匹配时间和误触排除条件。
+
+[GitHub 仓库](https://github.com/1789984734/gkd-personal-subscription) · [GKD 订阅链接](https://raw.githubusercontent.com/1789984734/gkd-personal-subscription/main/dist/gkd.json5)
+
+复制订阅链接，在 GKD 的订阅列表中添加即可使用。
+
+## 应用范围
+
+| 应用         | 保留的专用规则                          | 通用开屏规则                                         |
+| ------------ | --------------------------------------- | ---------------------------------------------------- |
+| 起点读书     | 开屏广告                                | 由专用规则处理                                       |
+| 微信         | 开屏广告-微信小程序                     | 沿用原小程序规则；目前用于青桔，也可能匹配其他小程序 |
+| 小黑盒       | 功能类-签到成功弹窗                     | 启用                                                 |
+| 米家         | 无                                      | 启用                                                 |
+| 掌上英雄联盟 | 开屏广告                                | 由专用规则处理                                       |
+| 京东         | 开屏广告                                | 由专用规则处理                                       |
+| 美团         | 开屏广告                                | 由专用规则处理                                       |
+| 华为智慧生活 | 无                                      | 启用                                                 |
+| 淘宝         | 开屏广告                                | 由专用规则处理                                       |
+| 中国农业银行 | 开屏广告                                | 由专用规则处理                                       |
+| 招商银行     | 无                                      | 启用                                                 |
+| 高德地图     | 开屏广告                                | 由专用规则处理                                       |
+| 支付宝       | 保留原订阅“开屏广告-小程序开屏广告”规则 | 保留上游默认禁用状态                                 |
+| 拼多多       | 开屏广告                                | 由专用规则处理                                       |
+| 闲鱼         | 无                                      | 启用                                                 |
+| 网易云音乐   | 开屏广告                                | 由专用规则处理                                       |
+
+“开屏广告”和“功能类”分类默认开启；功能类只包含小黑盒签到成功弹窗。签到规则只关闭成功弹窗。
+
+通用开屏规则使用 `matchAnyApp: false`，只包含以上清单。保留上游 `disableIfAppGroupMatch: '开屏广告'`，存在专用开屏规则时不重复使用通用规则；微信、支付宝、美团和拼多多的通用开屏默认禁用项保持不变。
+
+独立订阅 ID 为 `551761801`，避免与原订阅 `667` 混用。新订阅不会继承原订阅在手机中的手动启用或禁用设置。支付宝若曾在手机中覆盖过全局开屏配置，需要在新订阅中对应设置。
+
+## 本地维护
+
+环境要求：Node.js 22 或更新版本；CI 使用 Node.js 26。
+
+```sh
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm run check
+pnpm run build
+```
+
+`pnpm run check` 执行 TypeScript 检查、GKD 官方订阅及选择器校验，并检查应用范围和规则类别。`pnpm run build` 会先校验，再生成：
+
+- `dist/gkd.json5`：GKD 订阅文件。
+- `dist/gkd.version.json5`：更新检测文件。
+- `dist/CHANGELOG.md`：本次构建的变更说明。
+- `dist/README.md`：规则统计。
+
+订阅内容有变化时，构建工具会在已有版本基础上增加版本号；内容不变则不会重复发布。请保留已有 `dist`，以便延续版本号。
+
+应用规则在 `src/apps/包名.ts`。只依赖通用规则的应用保留一个空应用规则文件，后续可直接添加专用规则。新增应用时，同步修改 `config/scope.json`、对应应用文件和 `src/globalGroups.ts` 中的应用清单。
+
+上游规则更新时，按应用和规则组挑选需要的修复。保留自己的调整，再运行检查和构建。快照链接保留在每条规则里，便于后续判断匹配的界面。
+
+## 发布为远程订阅
+
+本订阅使用公开仓库 `1789984734/gkd-personal-subscription`，默认分支为 `main`。仓库内已准备：
+
+- `Check subscription`：推送或提交 PR 时检查构建。
+- `Publish subscription`：在 Actions 中手动运行，构建并提交 `dist`。
+
+订阅链接：
+
+```text
+https://raw.githubusercontent.com/1789984734/gkd-personal-subscription/main/dist/gkd.json5
+```
+
+将链接添加到 GKD 的订阅列表。导入后先停用原订阅，再逐项验证跳过效果，避免原订阅掩盖精简版的问题。没有设置固定 `updateUrl`，GKD 会使用导入时填写的链接，更新检测文件使用相对地址。
+
+已在本地验证类型、选择器语法、规则范围和与上游的规则一致性；新订阅 ID 下的真机点击效果仍需手机验证。
+
+## 来源
+
+- [Lin-arm/GKD_subscription](https://github.com/Lin-arm/GKD_subscription)：本订阅规则来源。
+- [gkd-kit/subscription-template](https://github.com/gkd-kit/subscription-template)：目录、校验和发布流程参考。
+- [GKD 文档](https://gkd.li/)：规则格式和匹配语义。
+
+`UPSTREAM.json` 记录提取时的提交、发布版本和原文件 SHA-256。规则来源与快照链接应在后续维护中继续保留。

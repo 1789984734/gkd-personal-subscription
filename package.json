@@ -1,0 +1,25 @@
+{
+  "name": "gkd-personal-subscription",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "pnpm@11.20.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "tsc --noEmit && tsx scripts/check.ts",
+    "build": "pnpm run check && tsx scripts/build.ts",
+    "format": "prettier --write src scripts config .github README.md"
+  },
+  "devDependencies": {
+    "@gkd-kit/api": "0.9.3",
+    "@gkd-kit/define": "0.0.1",
+    "@gkd-kit/tools": "0.8.0",
+    "@types/node": "26.1.2",
+    "json5": "2.2.3",
+    "prettier": "3.9.6",
+    "tsx": "4.23.5",
+    "typescript": "6.0.3"
+  }
+}

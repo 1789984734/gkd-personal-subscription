@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/Lin-arm/GKD_subscription",
+  "commit": "8a534acd923297bd95870eadc127cf7cc15a30c6",
+  "releaseVersion": 605,
+  "sourcePath": "dist/gkd.json5",
+  "sourceSha256": "031f1917e1052aa3941306e3adbe73a324f8b318cab2219aa497f499286ed358",
+  "templateRepository": "https://github.com/gkd-kit/subscription-template",
+  "scope": "16 个应用的开屏广告，以及小黑盒签到成功弹窗"
+}

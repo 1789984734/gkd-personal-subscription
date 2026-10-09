@@ -1,0 +1,146 @@
+// 选择器和误触排除条件来自上游已发布的通用开屏规则。
+// matchAnyApp: false 限制在清单内；保留上游已设置的应用禁用项。
+import { defineGkdGlobalGroups } from '@gkd-kit/define';
+
+export default defineGkdGlobalGroups([
+  {
+    key: 0,
+    name: '开屏广告-全局',
+    desc: '关闭打开应用时的开屏广告',
+    order: -10,
+    fastQuery: true,
+    matchTime: 10000,
+    actionMaximum: 2,
+    resetMatch: 'app',
+    forcedTime: 10000,
+    actionCdKey: 0,
+    actionMaximumKey: 0,
+    priorityTime: 10000,
+    disableIfAppGroupMatch: '开屏广告',
+    rules: [
+      {
+        key: 0,
+        excludeMatches:
+          '([text="Submit" || text="书签" || text="NEXT" || text="覆盖" || text*="阅读并同意" || text="跳过空白"][visibleToUser=true]) || ([text*="搜索" || text="历史记录" || text$="在搜"][text.length>3 && text.length<7][visibleToUser=true]) || ([text$="设置" || text*="跳过片"][text.length<10][visibleToUser=true]) || ([text^="选择"][text*="偏好" || text*="兴趣" || text*="喜好" || text*="行业"][text.length<10][visibleToUser=true])',
+        anyMatches: [
+          '[text*="跳过"][text.length<10][width<500 && height<300][visibleToUser=true]',
+          '@[name$="View" || name$="LinearLayout"][clickable=true][childCount<2][width<300 && height<200] - [text="互动广告"][visibleToUser=true]',
+          '[childCount=0][visibleToUser=true][width<500 && height<300][(text.length<10 && (text*="跳过" || text*="跳 过" || text*="跳過" || text~="(?is).*skip.*") && text!*="视频" && text!*="片头" && text!*="片尾") || (vid~="(?is).*skip.*" && vid!~="(?is).*video.*" && vid!~="(?is).*head.*" && vid!~="(?is).*tail.*" && !(text="帮助") && !(text="取消") && !(text*="退出")) || id$="tt_splash_skip_btn" || (desc.length<10 && (desc*="跳过" || desc*="跳過" || desc~="(?is).*skip.*"))]',
+        ],
+        snapshotUrls: [
+          'https://i.gkd.li/i/21617612',
+          'https://i.gkd.li/i/23557410',
+          'https://i.gkd.li/i/13421452',
+          'https://i.gkd.li/i/24097095',
+          'https://i.gkd.li/i/24766641',
+          'https://i.gkd.li/i/24330969',
+          'https://i.gkd.li/i/24541384',
+          'https://i.gkd.li/i/24588777',
+        ],
+        excludeSnapshotUrls: [
+          'https://i.gkd.li/i/19952277',
+          'https://i.gkd.li/i/23122415',
+          'https://i.gkd.li/i/23225609',
+          'https://i.gkd.li/i/27801562',
+          'https://i.gkd.li/i/22634992',
+          'https://i.gkd.li/i/32416687',
+          'https://i.gkd.li/i/20946730',
+          'https://i.gkd.li/i/23741801',
+          'https://i.gkd.li/i/23741779',
+          'https://i.gkd.li/i/23051921',
+          'https://i.gkd.li/i/23742770',
+          'https://i.gkd.li/i/23743049',
+          'https://i.gkd.li/i/23052289',
+          'https://i.gkd.li/i/15079224',
+          'https://i.gkd.li/i/17108010',
+          'https://i.gkd.li/i/18265000',
+          'https://i.gkd.li/i/20949002',
+          'https://i.gkd.li/i/21617520',
+          'https://i.gkd.li/i/25039297',
+        ],
+      },
+      {
+        key: 1,
+        anyMatches: [
+          '@View[text=null][clickable=true][childCount=0][visibleToUser=true][width<200&&height<200] +(1,2) TextView[index=parent.childCount.minus(1)][childCount=0] <n FrameLayout[childCount>2][text=null][desc=null] >(n+6) [text*="第三方应用" || text*="扭动手机" || text*="点击或上滑" || text*="省钱好物" || text*="扭一扭"][visibleToUser=true]',
+          'FrameLayout > FrameLayout[childCount>2][text=null][desc=null] > @View[text=null][clickable=true][childCount=0][visibleToUser=true][width<200&&height<200] +(1,2) TextView[index=parent.childCount.minus(1)][childCount=0][visibleToUser=true]',
+        ],
+        snapshotUrls: [
+          'https://i.gkd.li/i/19685971',
+          'https://i.gkd.li/i/19701216',
+          'https://i.gkd.li/i/20262130',
+          'https://i.gkd.li/i/20768349',
+          'https://i.gkd.li/i/20883248',
+          'https://i.gkd.li/i/23549504',
+        ],
+      },
+    ],
+    apps: [
+      {
+        id: 'com.qidian.QDReader',
+        enable: true,
+      },
+      {
+        id: 'com.tencent.mm',
+        enable: false,
+      },
+      {
+        id: 'com.max.xiaoheihe',
+        enable: true,
+      },
+      {
+        id: 'com.xiaomi.smarthome',
+        enable: true,
+      },
+      {
+        id: 'com.tencent.qt.qtl',
+        enable: true,
+      },
+      {
+        id: 'com.jingdong.app.mall',
+        enable: true,
+      },
+      {
+        id: 'com.sankuai.meituan',
+        enable: false,
+      },
+      {
+        id: 'com.huawei.smarthome',
+        enable: true,
+      },
+      {
+        id: 'com.taobao.taobao',
+        enable: true,
+      },
+      {
+        id: 'com.android.bankabc',
+        enable: true,
+      },
+      {
+        id: 'cmb.pb',
+        enable: true,
+      },
+      {
+        id: 'com.autonavi.minimap',
+        enable: true,
+      },
+      {
+        id: 'com.eg.android.AlipayGphone',
+        enable: false,
+      },
+      {
+        id: 'com.xunmeng.pinduoduo',
+        enable: false,
+      },
+      {
+        id: 'com.taobao.idlefish',
+        enable: true,
+      },
+      {
+        id: 'com.netease.cloudmusic',
+        enable: true,
+      },
+    ],
+    matchAnyApp: false,
+  },
+]);

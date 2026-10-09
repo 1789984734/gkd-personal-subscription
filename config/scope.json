@@ -1,0 +1,70 @@
+{
+  "apps": [
+    {
+      "id": "com.qidian.QDReader",
+      "name": "起点读书"
+    },
+    {
+      "id": "com.tencent.mm",
+      "name": "微信"
+    },
+    {
+      "id": "com.max.xiaoheihe",
+      "name": "小黑盒"
+    },
+    {
+      "id": "com.xiaomi.smarthome",
+      "name": "米家"
+    },
+    {
+      "id": "com.tencent.qt.qtl",
+      "name": "掌上英雄联盟"
+    },
+    {
+      "id": "com.jingdong.app.mall",
+      "name": "京东"
+    },
+    {
+      "id": "com.sankuai.meituan",
+      "name": "美团"
+    },
+    {
+      "id": "com.huawei.smarthome",
+      "name": "华为智慧生活"
+    },
+    {
+      "id": "com.taobao.taobao",
+      "name": "淘宝"
+    },
+    {
+      "id": "com.android.bankabc",
+      "name": "中国农业银行"
+    },
+    {
+      "id": "cmb.pb",
+      "name": "招商银行"
+    },
+    {
+      "id": "com.autonavi.minimap",
+      "name": "高德地图"
+    },
+    {
+      "id": "com.eg.android.AlipayGphone",
+      "name": "支付宝"
+    },
+    {
+      "id": "com.xunmeng.pinduoduo",
+      "name": "拼多多"
+    },
+    {
+      "id": "com.taobao.idlefish",
+      "name": "闲鱼"
+    },
+    {
+      "id": "com.netease.cloudmusic",
+      "name": "网易云音乐"
+    }
+  ],
+  "wechatMiniProgram": "青桔（沿用通用小程序开屏规则）",
+  "extraGroups": ["小黑盒：功能类-签到成功弹窗"]
+}
